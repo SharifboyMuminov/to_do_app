@@ -20,10 +20,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int activeIndexCategory = -1;
-  int activeSubCategory = -1;
-  double selfEsteem = 50;
-  double stressLevel = 20;
+  int _activeIndexCategory = -1;
+  double _selfEsteem = 50;
+  double _stressLevel = 20;
+
+  bool _isActive = false;
 
   List<int> activeIndexSubCategories = [];
 
@@ -82,41 +83,44 @@ class _HomeScreenState extends State<HomeScreen> {
                       categoryModel: categoryModels[index],
                       onTAb: () {
                         setState(() {
-                          activeIndexCategory = index;
+                          _activeIndexCategory = index;
+                          _isActive = true;
                         });
                       },
-                      isActive: activeIndexCategory == index,
+                      isActive: _activeIndexCategory == index,
                     );
                   },
                 ),
               ),
             ),
-            14.getH(),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.we),
-              child: Wrap(
-                spacing: 8.he,
-                children: List.generate(
-                  subCategories.length,
-                  (index) {
-                    return SubCategoryItem(
-                      onTab: () {
-                        setState(() {
-                          if (activeIndexSubCategories.contains(index)) {
-                            activeIndexSubCategories.remove(index);
-                          } else {
-                            activeIndexSubCategories.add(index);
-                          }
-                        });
-                      },
-                      title: subCategories[index],
-                      isActive: activeIndexSubCategories.contains(index),
-                    );
-                  },
+            if (_isActive) 14.getH(),
+            if (_isActive)
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.we),
+                child: Wrap(
+                  spacing: 8.he,
+                  children: List.generate(
+                    subCategories.length,
+                    (index) {
+                      return SubCategoryItem(
+                        onTab: () {
+                          setState(() {
+                            if (activeIndexSubCategories.contains(index)) {
+                              activeIndexSubCategories.remove(index);
+                            } else {
+                              activeIndexSubCategories.add(index);
+                            }
+                          });
+                        },
+                        title: subCategories[index],
+                        isActive: activeIndexSubCategories.contains(index),
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-            28.getH(),
+            if (_isActive) 28.getH(),
+            if (!_isActive) 36.getH(),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.we),
               child: Text(
@@ -130,13 +134,16 @@ class _HomeScreenState extends State<HomeScreen> {
             20.getH(),
             SelfEsteemStressLevel(
               onChanged: (value) {
-                setState(() {
-                  stressLevel = value;
-                });
+                if (_isActive) {
+                  setState(() {
+                    _stressLevel = value;
+                  });
+                }
               },
               firsTitle: 'Низкий',
               lastTitle: 'Высокий',
-              currentValue: stressLevel,
+              currentValue: _stressLevel,
+              isActive: _isActive,
             ),
             36.getH(),
             Padding(
@@ -152,13 +159,16 @@ class _HomeScreenState extends State<HomeScreen> {
             20.getH(),
             SelfEsteemStressLevel(
               onChanged: (value) {
-                setState(() {
-                  selfEsteem = value;
-                });
+                if (_isActive) {
+                  setState(() {
+                    _selfEsteem = value;
+                  });
+                }
               },
               firsTitle: 'Неуверенность',
               lastTitle: 'Уверенность',
-              currentValue: selfEsteem,
+              currentValue: _selfEsteem,
+              isActive: _isActive,
             ),
             36.getH(),
             Padding(
@@ -176,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
             35.getH(),
             SaveButton(
               onTab: () {},
-              isActive: false,
+              isActive: _isActive,
             ),
           ],
         ),

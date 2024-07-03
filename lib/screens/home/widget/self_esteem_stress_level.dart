@@ -12,12 +12,14 @@ class SelfEsteemStressLevel extends StatelessWidget {
     required this.firsTitle,
     required this.lastTitle,
     required this.currentValue,
+    required this.isActive,
   });
 
   final ValueChanged<double> onChanged;
   final String firsTitle;
   final String lastTitle;
   final double currentValue;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +63,7 @@ class SelfEsteemStressLevel extends StatelessWidget {
               MySlider(
                 onChanged: onChanged,
                 currentValue: currentValue,
+                isActive: isActive,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

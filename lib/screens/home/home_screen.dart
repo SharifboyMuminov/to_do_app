@@ -7,6 +7,7 @@ import 'package:to_do_app/screens/home/widget/notes_input.dart';
 import 'package:to_do_app/screens/home/widget/save_button.dart';
 import 'package:to_do_app/screens/home/widget/self_esteem_stress_level.dart';
 import 'package:to_do_app/screens/home/widget/sub_category_item.dart';
+import 'package:to_do_app/screens/home/widget/top_button.dart';
 import 'package:to_do_app/utils/app_colors.dart';
 import 'package:to_do_app/utils/app_images.dart';
 import 'package:to_do_app/utils/app_size.dart';
@@ -25,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   double _stressLevel = 20;
 
   bool _isActive = false;
+  int _activePageIndex = 0;
 
   List<int> activeIndexSubCategories = [];
 
@@ -34,33 +36,47 @@ class _HomeScreenState extends State<HomeScreen> {
     height = MediaQuery.of(context).size.height;
     return Scaffold(
       // backgroundColor: AppColors.white,
-      appBar: AppBar(
-        // backgroundColor: AppColors.white,
-        centerTitle: true,
-        title: Text(
-          "1 января 09:00",
-          style: AppTextStyle.nunitoSemiBold.copyWith(
-            fontSize: 18.sp,
-            color: AppColors.cBCBCBF,
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset(
-              AppImages.dateIconSvg,
-              width: 24.we,
-              height: 24.we,
-            ),
-          ),
-          14.getW(),
-        ],
-      ),
+      appBar: _appBar(),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(top: 22.he, bottom: 30.he),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Align(
+              alignment: Alignment.center,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: AppColors.cF2F2F2,
+                  borderRadius: BorderRadius.circular(47.r),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TopMyButton(
+                      onTab: () {
+                        setState(() {
+                          _activePageIndex = 0;
+                        });
+                      },
+                      title: 'Дневник настроения',
+                      iconPath: AppImages.notesSvg,
+                      isActive: _activePageIndex == 0,
+                    ),
+                    TopMyButton(
+                      onTab: () {
+                        setState(() {
+                          _activePageIndex = 1;
+                        });
+                      },
+                      title: 'Статистика',
+                      iconPath: AppImages.statisticsSvg,
+                      isActive: _activePageIndex == 1,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            30.getH(),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.we),
               child: Text(
@@ -191,6 +207,31 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  AppBar _appBar() {
+    return AppBar(
+      // backgroundColor: AppColors.white,
+      centerTitle: true,
+      title: Text(
+        "1 января 09:00",
+        style: AppTextStyle.nunitoSemiBold.copyWith(
+          fontSize: 18.sp,
+          color: AppColors.cBCBCBF,
+        ),
+      ),
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: SvgPicture.asset(
+            AppImages.dateIconSvg,
+            width: 24.we,
+            height: 24.we,
+          ),
+        ),
+        14.getW(),
+      ],
     );
   }
 }

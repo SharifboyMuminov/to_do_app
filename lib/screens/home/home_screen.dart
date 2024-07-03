@@ -207,16 +207,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          // await DateTimeRange(start: DateTime.now(), end: DateTime(2090));
-          await showDateRangePicker(
-            context: context,
-            firstDate: DateTime.now(),
-            lastDate: DateTime(2080),
-          );
-        },
-      ),
     );
   }
 
@@ -233,7 +223,15 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       actions: [
         IconButton(
-          onPressed: () {},
+          onPressed: () async {
+            await showDateRangePicker(
+              initialEntryMode: DatePickerEntryMode.calendarOnly,
+              saveText: "Сохранить",
+              context: context,
+              firstDate: DateTime.now(),
+              lastDate: DateTime(2080),
+            );
+          },
           icon: SvgPicture.asset(
             AppImages.dateIconSvg,
             width: 24.we,

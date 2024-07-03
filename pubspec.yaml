@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.6
   shared_preferences: ^2.2.3
   flutter_screenutil: ^5.9.3
+  flutter_svg: ^2.0.10+1
+  animated_segmented_tab_control: ^2.0.0
 
 dev_dependencies:
   flutter_test:

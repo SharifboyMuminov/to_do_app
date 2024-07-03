@@ -207,6 +207,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          // await DateTimeRange(start: DateTime.now(), end: DateTime(2090));
+          await showDateRangePicker(
+            context: context,
+            firstDate: DateTime.now(),
+            lastDate: DateTime(2080),
+          );
+        },
+      ),
     );
   }
 

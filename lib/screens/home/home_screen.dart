@@ -230,6 +230,51 @@ class _HomeScreenState extends State<HomeScreen> {
               context: context,
               firstDate: DateTime.now(),
               lastDate: DateTime(2080),
+              builder: (context, child) {
+                return Theme(
+                  data: Theme.of(context).copyWith(
+                    dialogBackgroundColor: Colors.blue,
+                    // days/years gridview
+                    textTheme: TextTheme(
+                      headlineSmall: AppTextStyle.nunitoRegular,
+                      // Selected Date landscape
+                      titleLarge: AppTextStyle.nunitoRegular,
+                      // Selected Date portrait
+                      labelSmall: AppTextStyle.nunitoMedium,
+                      // Title - SELECT DATE
+                      // year gridbview picker
+                      titleMedium: AppTextStyle.nunitoRegular,
+                      // input
+                      titleSmall:
+                          AppTextStyle.nunitoRegular, // month/year picker
+                      // bodySmall: GoogleFonts.greatVibes(), // days
+                    ),
+                    colorScheme: Theme.of(context).colorScheme.copyWith(
+                          // Title, selected date and day selection background (dark and light mode)
+                          surface: AppColors.cFF8702,
+                          primary: AppColors.cFF8702,
+                          // Title, selected date and month/year picker color (dark and light mode)
+                          onSurface: Colors.black,
+
+                          onPrimary: Colors.white,
+                        ),
+                    // Buttons
+                    textButtonTheme: TextButtonThemeData(
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.yellow,
+                        backgroundColor: Colors.transparent,
+                        textStyle: AppTextStyle.nunitoRegular,
+                      ),
+                    ),
+                    // Input
+                    inputDecorationTheme: InputDecorationTheme(
+                      labelStyle: AppTextStyle.nunitoRegular
+                          .copyWith(color: Colors.redAccent), // Input label
+                    ),
+                  ),
+                  child: child!,
+                );
+              },
             );
           },
           icon: SvgPicture.asset(

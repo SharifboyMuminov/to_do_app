@@ -7,7 +7,7 @@ import 'package:to_do_app/blocs/notes_input/notes_input_event.dart';
 import 'package:to_do_app/blocs/notes_input/notes_input_state.dart';
 import 'package:to_do_app/data/local/local_varibals.dart';
 import 'package:to_do_app/data/models/from_status/from_status_eman.dart';
-import 'package:to_do_app/screens/date/calendar_screen.dart';
+import 'package:to_do_app/screens/calendar/calendar_screen.dart';
 import 'package:to_do_app/screens/home/widget/category_item.dart';
 import 'package:to_do_app/screens/home/widget/notes_input.dart';
 import 'package:to_do_app/screens/home/widget/save_button.dart';

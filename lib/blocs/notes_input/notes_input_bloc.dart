@@ -8,7 +8,6 @@ class NotesInputBloc extends Bloc<NotesInputEvent, NotesInputState> {
     on<NotesInputSetSubCategoriesEvent>(_setSubCategories);
     on<NotesInputSetStressLevelEvent>(_setStressLevel);
     on<NotesInputSetNotesTextEvent>(_setNotesText);
-    on<NotesInputSetNotesTextEvent>(_setNotesText);
     on<NotesInputSetSelfEsteemEvent>(_setSelfEsteem);
   }
 

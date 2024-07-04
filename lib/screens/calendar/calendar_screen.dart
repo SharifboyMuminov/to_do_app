@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:to_do_app/screens/calendar/widget/table_calendar.dart';
 import 'package:to_do_app/utils/app_colors.dart';
 import 'package:to_do_app/utils/app_images.dart';
 import 'package:to_do_app/utils/app_size.dart';
@@ -43,7 +44,7 @@ class CalendarScreenState extends State<CalendarScreen> {
                 TextButton(
                   onPressed: () {},
                   child: Text(
-                    "Сегодня",
+                    "Сохранить",
                     style: AppTextStyle.nunitoSemiBold.copyWith(
                       fontSize: 18.sp,
                       color: AppColors.cBCBCBF,
@@ -54,68 +55,30 @@ class CalendarScreenState extends State<CalendarScreen> {
             ),
           ),
           22.getH(),
-          TableCalendar(
-            locale: 'ru',
-            firstDay: DateTime.utc(2010, 10, 16),
-            lastDay: DateTime.utc(2030, 3, 14),
+          MyTableCalendar(
             focusedDay: _focusedDay,
             calendarFormat: _calendarFormat,
-            calendarStyle: CalendarStyle(
-              selectedDecoration: const BoxDecoration(
-                color: AppColors.cFF8702,
-                shape: BoxShape.circle,
-              ),
-              todayDecoration: BoxDecoration(
-                color: AppColors.cFF8702.withOpacity(0.5),
-                shape: BoxShape.circle,
-              ),
-
-
-              holidayTextStyle: AppTextStyle.nunitoMedium.copyWith(
-                color: AppColors.c4C4C69,
-                fontSize: 40.sp,
-              ),
-              weekendTextStyle: AppTextStyle.nunitoMedium.copyWith(
-                color: AppColors.c4C4C69,
-                fontSize: 10.sp,
-              ),
-              weekNumberTextStyle: AppTextStyle.nunitoMedium.copyWith(
-                color: AppColors.c4C4C69,
-                fontSize: 10.sp,
-              ),
-            ),
-            selectedDayPredicate: (day) {
+            onPageChanged: (DateTime focusedDay) {
+              _focusedDay = focusedDay;
+            },
+            selectedDayPredicate: (DateTime day) {
               return isSameDay(_selectedDay, day);
             },
-            onDaySelected: (selectedDay, focusedDay) {
-              setState(() {
-                _selectedDay = selectedDay;
-                _focusedDay = focusedDay; // update `_focusedDay` here as well
-              });
-            },
-            onFormatChanged: (format) {
+            onFormatChanged: (CalendarFormat format) {
               setState(() {
                 _calendarFormat = format;
               });
             },
-            onPageChanged: (focusedDay) {
-              _focusedDay = focusedDay;
+            onDaySelected: (DateTime selectedDay, DateTime focusedDay) {
+              setState(() {
+                _selectedDay = selectedDay;
+                _focusedDay = focusedDay;
+              });
             },
-            calendarBuilders: CalendarBuilders(
-              headerTitleBuilder: (context, day) {
-                return Text(
-                  '${day.year} ${day.month}', // Customize this as needed
-                  style: TextStyle(
-                    fontSize: 24, // Change font size
-                    fontWeight: FontWeight.bold, // Change font weight
-                    color: Colors.blue, // Change text color
-                  ),
-                );
-              },
-            ),
           ),
         ],
       ),
     );
   }
+
 }

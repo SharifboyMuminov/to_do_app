@@ -78,6 +78,7 @@ class NotesInputBloc extends Bloc<NotesInputEvent, NotesInputState> {
   void _check(emit) {
     if (state.notesModel.subCategories.isEmpty ||
         state.notesModel.categoryName.isEmpty ||
+        state.notesModel.date.isEmpty ||
         state.notesModel.notesTitle.isEmpty) {
       emit(state.copyWith(fromStatus: FromStatus.error));
     } else {

@@ -46,3 +46,12 @@ class NotesInputSetNotesTextEvent extends NotesInputEvent {
   @override
   List<Object?> get props => [text];
 }
+
+class NotesInputSetDateTextEvent extends NotesInputEvent {
+  final String date;
+
+  NotesInputSetDateTextEvent({required this.date});
+
+  @override
+  List<Object?> get props => [date];
+}

@@ -34,6 +34,8 @@ class CategoryItem extends StatelessWidget {
           ],
         ),
         child: SizedBox(
+          width: 83.we,
+          //Не хотел указывать размер, всё должен быть одинаковым :(
           child: TextButton(
             style: TextButton.styleFrom(
               padding: EdgeInsets.only(
@@ -61,6 +63,8 @@ class CategoryItem extends StatelessWidget {
                 ),
                 Text(
                   categoryModel.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: AppTextStyle.nunitoRegular.copyWith(
                     color: AppColors.c4C4C69,
                     fontSize: 11.sp,

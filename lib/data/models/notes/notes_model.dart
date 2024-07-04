@@ -35,8 +35,8 @@ class NotesModel extends Equatable {
     return const NotesModel(
       subCategories: [],
       categoryName: "",
-      selfEsteem: 0,
-      stressLevel: 0,
+      selfEsteem: 50,
+      stressLevel: 50,
       notesTitle: '',
     );
   }

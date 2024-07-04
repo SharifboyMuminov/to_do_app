@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:to_do_app/blocs/notes_input/notes_input_bloc.dart';
+import 'package:to_do_app/blocs/notes_input/notes_input_event.dart';
 import 'package:to_do_app/blocs/notes_input/notes_input_state.dart';
 import 'package:to_do_app/data/local/local_varibals.dart';
+import 'package:to_do_app/data/models/from_status/from_status_eman.dart';
 import 'package:to_do_app/screens/home/widget/category_item.dart';
 import 'package:to_do_app/screens/home/widget/notes_input.dart';
 import 'package:to_do_app/screens/home/widget/save_button.dart';
@@ -24,14 +26,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _activeIndexCategory = -1;
-  double _selfEsteem = 50;
-  double _stressLevel = 20;
-
-  bool _isActive = false;
-
-  List<int> activeIndexSubCategories = [];
-
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
@@ -68,19 +62,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         return CategoryItem(
                           categoryModel: categoryModels[index],
                           onTAb: () {
-                            setState(() {
-                              _activeIndexCategory = index;
-                              _isActive = true;
-                            });
+                            context.read<NotesInputBloc>().add(
+                                  NotesInputChangeCategoryEvent(
+                                    categoryName: categoryModels[index].title,
+                                  ),
+                                );
                           },
-                          isActive: _activeIndexCategory == index,
+                          isActive: state.notesModel.categoryName ==
+                              categoryModels[index].title,
                         );
                       },
                     ),
                   ),
                 ),
-                if (_isActive) 14.getH(),
-                if (_isActive)
+                if (state.notesModel.categoryName.isNotEmpty) 14.getH(),
+                if (state.notesModel.categoryName.isNotEmpty)
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.we),
                     child: Wrap(
@@ -90,23 +86,22 @@ class _HomeScreenState extends State<HomeScreen> {
                         (index) {
                           return SubCategoryItem(
                             onTab: () {
-                              setState(() {
-                                if (activeIndexSubCategories.contains(index)) {
-                                  activeIndexSubCategories.remove(index);
-                                } else {
-                                  activeIndexSubCategories.add(index);
-                                }
-                              });
+                              context.read<NotesInputBloc>().add(
+                                    NotesInputSetSubCategoriesEvent(
+                                      subCategoryName: subCategories[index],
+                                    ),
+                                  );
                             },
                             title: subCategories[index],
-                            isActive: activeIndexSubCategories.contains(index),
+                            isActive: state.notesModel.subCategories
+                                .contains(subCategories[index]),
                           );
                         },
                       ),
                     ),
                   ),
-                if (_isActive) 28.getH(),
-                if (!_isActive) 36.getH(),
+                if (state.notesModel.categoryName.isNotEmpty) 28.getH(),
+                if (!state.notesModel.categoryName.isNotEmpty) 36.getH(),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.we),
                   child: Text(
@@ -120,16 +115,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 20.getH(),
                 SelfEsteemStressLevel(
                   onChanged: (value) {
-                    if (_isActive) {
-                      setState(() {
-                        _stressLevel = value;
-                      });
+                    if (state.notesModel.categoryName.isNotEmpty) {
+                      context.read<NotesInputBloc>().add(
+                            NotesInputSetStressLevelEvent(
+                              stressLevel: value.toInt(),
+                            ),
+                          );
                     }
                   },
                   firsTitle: 'Низкий',
                   lastTitle: 'Высокий',
-                  currentValue: _stressLevel,
-                  isActive: _isActive,
+                  currentValue: state.notesModel.stressLevel.toDouble(),
+                  isActive: state.notesModel.categoryName.isNotEmpty,
                 ),
                 36.getH(),
                 Padding(
@@ -145,16 +142,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 20.getH(),
                 SelfEsteemStressLevel(
                   onChanged: (value) {
-                    if (_isActive) {
-                      setState(() {
-                        _selfEsteem = value;
-                      });
+                    if (state.notesModel.categoryName.isNotEmpty) {
+                      context.read<NotesInputBloc>().add(
+                            NotesInputSetSelfEsteemEvent(
+                              selfEsteem: value.toInt(),
+                            ),
+                          );
                     }
                   },
                   firsTitle: 'Неуверенность',
                   lastTitle: 'Уверенность',
-                  currentValue: _selfEsteem,
-                  isActive: _isActive,
+                  currentValue: state.notesModel.selfEsteem.toDouble(),
+                  isActive: state.notesModel.categoryName.isNotEmpty,
                 ),
                 36.getH(),
                 Padding(
@@ -168,11 +167,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 20.getH(),
-                NotesInput(onChanged: (String value) {}),
+                NotesInput(onChanged: (String value) {
+                  context.read<NotesInputBloc>().add(
+                        NotesInputSetNotesTextEvent(
+                          text: value,
+                        ),
+                      );
+                }),
                 35.getH(),
                 SaveButton(
                   onTab: () {},
-                  isActive: _isActive,
+                  isActive: state.fromStatus == FromStatus.success,
                 ),
               ],
             ),

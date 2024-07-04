@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app/blocs/notes_input/notes_input_event.dart';
 import 'package:to_do_app/blocs/notes_input/notes_input_state.dart';
+import 'package:to_do_app/data/models/from_status/from_status_eman.dart';
 
 class NotesInputBloc extends Bloc<NotesInputEvent, NotesInputState> {
   NotesInputBloc() : super(NotesInputState.initali()) {
@@ -19,6 +20,7 @@ class NotesInputBloc extends Bloc<NotesInputEvent, NotesInputState> {
         ),
       ),
     );
+    _check(emit);
   }
 
   void _setStressLevel(NotesInputSetStressLevelEvent event, emit) {
@@ -29,6 +31,7 @@ class NotesInputBloc extends Bloc<NotesInputEvent, NotesInputState> {
         ),
       ),
     );
+    _check(emit);
   }
 
   void _setSelfEsteem(NotesInputSetSelfEsteemEvent event, emit) {
@@ -39,6 +42,7 @@ class NotesInputBloc extends Bloc<NotesInputEvent, NotesInputState> {
         ),
       ),
     );
+    _check(emit);
   }
 
   void _setCategory(NotesInputChangeCategoryEvent event, emit) {
@@ -46,13 +50,15 @@ class NotesInputBloc extends Bloc<NotesInputEvent, NotesInputState> {
       state.copyWith(
         notesModel: state.notesModel.copyWith(
           categoryName: event.categoryName,
+          subCategories: [],
         ),
       ),
     );
+    _check(emit);
   }
 
   void _setSubCategories(NotesInputSetSubCategoriesEvent event, emit) {
-    List<String> subCategories = state.notesModel.subCategories;
+    List<String> subCategories = [...state.notesModel.subCategories];
 
     if (subCategories.contains(event.subCategoryName)) {
       subCategories.remove(event.subCategoryName);
@@ -66,5 +72,16 @@ class NotesInputBloc extends Bloc<NotesInputEvent, NotesInputState> {
         ),
       ),
     );
+    _check(emit);
+  }
+
+  void _check(emit) {
+    if (state.notesModel.subCategories.isEmpty ||
+        state.notesModel.categoryName.isEmpty ||
+        state.notesModel.notesTitle.isEmpty) {
+      emit(state.copyWith(fromStatus: FromStatus.error));
+    } else {
+      emit(state.copyWith(fromStatus: FromStatus.success));
+    }
   }
 }

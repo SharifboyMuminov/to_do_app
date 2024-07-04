@@ -84,6 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: EdgeInsets.symmetric(horizontal: 20.we),
                     child: Wrap(
                       spacing: 8.he,
+                      runSpacing: 3.we,
                       children: List.generate(
                         subCategories.length,
                         (index) {

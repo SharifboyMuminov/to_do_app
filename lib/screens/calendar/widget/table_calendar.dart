@@ -27,6 +27,7 @@ class MyTableCalendar extends StatelessWidget {
   Widget build(BuildContext context) {
     return TableCalendar(
       locale: 'ru',
+      daysOfWeekVisible: true,
       firstDay: DateTime.utc(2010, 10, 16),
       lastDay: DateTime.utc(2030, 3, 14),
       focusedDay: focusedDay,
@@ -40,15 +41,47 @@ class MyTableCalendar extends StatelessWidget {
           color: AppColors.cFF8702.withOpacity(0.5),
           shape: BoxShape.circle,
         ),
+        selectedTextStyle: AppTextStyle.nunitoMedium.copyWith(
+          color: AppColors.white,
+          fontSize: 10.sp,
+        ),
         holidayTextStyle: AppTextStyle.nunitoMedium.copyWith(
           color: AppColors.c4C4C69,
           fontSize: 40.sp,
+        ),
+        todayTextStyle: AppTextStyle.nunitoMedium.copyWith(
+          color: AppColors.c4C4C69,
+          fontSize: 10.sp,
         ),
         weekendTextStyle: AppTextStyle.nunitoMedium.copyWith(
           color: AppColors.c4C4C69,
           fontSize: 10.sp,
         ),
+        outsideTextStyle: AppTextStyle.nunitoMedium.copyWith(
+          color: AppColors.c4C4C69.withOpacity(0.5),
+          fontSize: 10.sp,
+        ),
+        disabledTextStyle: AppTextStyle.nunitoMedium.copyWith(
+          color: AppColors.c4C4C69,
+          fontSize: 10.sp,
+        ),
+        withinRangeTextStyle: AppTextStyle.nunitoMedium.copyWith(
+          color: AppColors.c4C4C69,
+          fontSize: 10.sp,
+        ),
         weekNumberTextStyle: AppTextStyle.nunitoMedium.copyWith(
+          color: AppColors.c4C4C69,
+          fontSize: 10.sp,
+        ),
+        rangeEndTextStyle: AppTextStyle.nunitoMedium.copyWith(
+          color: AppColors.c4C4C69,
+          fontSize: 10.sp,
+        ),
+        rangeStartTextStyle: AppTextStyle.nunitoMedium.copyWith(
+          color: AppColors.c4C4C69,
+          fontSize: 10.sp,
+        ),
+        defaultTextStyle: AppTextStyle.nunitoMedium.copyWith(
           color: AppColors.c4C4C69,
           fontSize: 10.sp,
         ),
@@ -57,6 +90,19 @@ class MyTableCalendar extends StatelessWidget {
       onDaySelected: onDaySelected,
       onFormatChanged: onFormatChanged,
       onPageChanged: onPageChanged,
+      headerStyle: HeaderStyle(
+        formatButtonVisible: false,
+        leftChevronIcon: Icon(
+          Icons.arrow_back_ios_new,
+          color: AppColors.c4C4C69,
+          size: 15.sp,
+        ),
+        rightChevronIcon: Icon(
+          Icons.arrow_forward_ios_rounded,
+          color: AppColors.c4C4C69,
+          size: 15.sp,
+        ),
+      ),
       calendarBuilders: CalendarBuilders(
         headerTitleBuilder: (context, day) {
           return Column(
@@ -84,7 +130,4 @@ class MyTableCalendar extends StatelessWidget {
       ),
     );
   }
-
 }
-
-

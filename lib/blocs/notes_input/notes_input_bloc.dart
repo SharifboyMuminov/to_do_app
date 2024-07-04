@@ -6,11 +6,25 @@ import 'package:to_do_app/data/models/from_status/from_status_eman.dart';
 class NotesInputBloc extends Bloc<NotesInputEvent, NotesInputState> {
   NotesInputBloc() : super(NotesInputState.initali()) {
     on<NotesInputChangeCategoryEvent>(_setCategory);
+    on<NotesInputSaveTextEvent>(_saveNotes);
     on<NotesInputSetSubCategoriesEvent>(_setSubCategories);
     on<NotesInputSetStressLevelEvent>(_setStressLevel);
     on<NotesInputSetNotesTextEvent>(_setNotesText);
     on<NotesInputSetSelfEsteemEvent>(_setSelfEsteem);
     on<NotesInputSetDateTextEvent>(_settDateText);
+  }
+
+  void _saveNotes(NotesInputSaveTextEvent event, emit) {
+    //Save logistics...
+
+    emit(NotesInputState.initali());
+    emit(
+      state.copyWith(
+        fromStatus: FromStatus.success,
+        statusMessage: "save",
+      ),
+    );
+    _check(emit);
   }
 
   void _settDateText(NotesInputSetDateTextEvent event, emit) {

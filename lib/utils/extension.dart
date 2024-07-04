@@ -1,9 +1,5 @@
-import 'package:flutter/cupertino.dart';
-
 extension MyExtension on int {
   String getMonthName() {
-
-    debugPrint(this.toString());
     switch (this) {
       case 1:
         return "Январь";

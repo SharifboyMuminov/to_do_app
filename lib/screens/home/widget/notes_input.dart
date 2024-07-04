@@ -5,9 +5,14 @@ import 'package:to_do_app/utils/app_size.dart';
 import 'package:to_do_app/utils/app_text_style.dart';
 
 class NotesInput extends StatelessWidget {
-  const NotesInput({super.key, required this.onChanged});
+  const NotesInput({
+    super.key,
+    required this.onChanged,
+    required this.controller,
+  });
 
   final ValueChanged<String> onChanged;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +32,7 @@ class NotesInput extends StatelessWidget {
           ],
         ),
         child: TextFormField(
+          controller: controller,
           onChanged: onChanged,
           textInputAction: TextInputAction.done,
           maxLines: 4,

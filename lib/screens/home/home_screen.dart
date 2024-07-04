@@ -27,11 +27,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController textEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-    return BlocBuilder<NotesInputBloc, NotesInputState>(
+    return BlocConsumer<NotesInputBloc, NotesInputState>(
       builder: (BuildContext context, NotesInputState state) {
         return Scaffold(
           appBar: _appBar(state.notesModel.date),
@@ -168,22 +170,38 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 20.getH(),
-                NotesInput(onChanged: (String value) {
-                  context.read<NotesInputBloc>().add(
-                        NotesInputSetNotesTextEvent(
-                          text: value,
-                        ),
-                      );
-                }),
+                NotesInput(
+                  onChanged: (String value) {
+                    context.read<NotesInputBloc>().add(
+                          NotesInputSetNotesTextEvent(
+                            text: value,
+                          ),
+                        );
+                  },
+                  controller: textEditingController,
+                ),
                 35.getH(),
                 SaveButton(
-                  onTab: () {},
+                  onTab: () {
+                    FocusScope.of(context).unfocus();
+
+                    context.read<NotesInputBloc>().add(
+                          NotesInputSaveTextEvent(),
+                        );
+                  },
                   isActive: state.fromStatus == FromStatus.success,
                 ),
               ],
             ),
           ),
         );
+      },
+      listener: (BuildContext context, NotesInputState state) {
+        if (state.fromStatus == FromStatus.success) {
+          if (state.statusMessage == "save") {
+            textEditingController.clear();
+          }
+        }
       },
     );
   }
@@ -228,5 +246,11 @@ class _HomeScreenState extends State<HomeScreen> {
         14.getW(),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
   }
 }

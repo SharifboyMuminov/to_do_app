@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocConsumer<NotesInputBloc, NotesInputState>(
       builder: (BuildContext context, NotesInputState state) {
         return Scaffold(
-          appBar: _appBar(state.notesModel.date),
+          appBar: _appBar(state),
           body: SingleChildScrollView(
             padding: EdgeInsets.only(top: 22.he, bottom: 30.he),
             child: Column(
@@ -221,12 +221,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  AppBar _appBar(String title) {
+  AppBar _appBar(NotesInputState state) {
     return AppBar(
       // backgroundColor: AppColors.white,
       centerTitle: true,
       title: Text(
-        title,
+        state.notesModel.date,
         style: AppTextStyle.nunitoSemiBold.copyWith(
           fontSize: 18.sp,
           color: AppColors.cBCBCBF,
@@ -239,7 +239,9 @@ class _HomeScreenState extends State<HomeScreen> {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return const CalendarScreen();
+                  return CalendarScreen(
+                    dateTime: state.notesModel.dateTime,
+                  );
                 },
               ),
             );

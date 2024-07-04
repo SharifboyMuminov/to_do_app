@@ -13,7 +13,9 @@ import 'package:to_do_app/utils/app_text_style.dart';
 import 'package:to_do_app/utils/extension.dart';
 
 class CalendarScreen extends StatefulWidget {
-  const CalendarScreen({super.key});
+  const CalendarScreen({super.key, required this.dateTime});
+
+  final DateTime dateTime;
 
   @override
   CalendarScreenState createState() => CalendarScreenState();
@@ -23,6 +25,16 @@ class CalendarScreenState extends State<CalendarScreen> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
+
+  @override
+  void initState() {
+    if (widget.dateTime.year != 2000) {
+      _focusedDay = widget.dateTime;
+      _selectedDay = widget.dateTime;
+    }
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,17 +65,17 @@ class CalendarScreenState extends State<CalendarScreen> {
                   ),
                   onPressed: _selectedDay != null
                       ? () {
-                          if (_selectedDay != null) {
-                            String selectDay =
-                                "${_selectedDay!.day} ${_selectedDay!.month.getMonthName()}";
+                          String selectDay =
+                              "${_selectedDay!.day} ${_selectedDay!.month.getMonthName()}";
 
-                            context.read<NotesInputBloc>().add(
-                                  NotesInputSetDateTextEvent(
-                                    date: selectDay,
-                                  ),
-                                );
-                            Navigator.pop(context);
-                          }
+                          context.read<NotesInputBloc>().add(
+                                NotesInputSetDateTextEvent(
+                                  date: selectDay,
+                                  dateTime: DateTime(_selectedDay!.year,
+                                      _selectedDay!.month, _selectedDay!.day),
+                                ),
+                              );
+                          Navigator.pop(context);
                         }
                       : null,
                   child: Text(

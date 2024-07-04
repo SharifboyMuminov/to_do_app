@@ -32,6 +32,7 @@ class NotesInputBloc extends Bloc<NotesInputEvent, NotesInputState> {
       state.copyWith(
         notesModel: state.notesModel.copyWith(
           date: event.date,
+          dateTime: event.dateTime,
         ),
       ),
     );

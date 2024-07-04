@@ -4,11 +4,13 @@ class NotesModel extends Equatable {
   final String notesTitle;
   final String categoryName;
   final String date;
+  final DateTime dateTime;
   final List<String> subCategories;
   final int stressLevel;
   final int selfEsteem;
 
   const NotesModel({
+    required this.dateTime,
     required this.date,
     required this.notesTitle,
     required this.subCategories,
@@ -20,6 +22,7 @@ class NotesModel extends Equatable {
   NotesModel copyWith({
     String? categoryName,
     String? date,
+    DateTime? dateTime,
     String? notesTitle,
     List<String>? subCategories,
     int? stressLevel,
@@ -32,23 +35,26 @@ class NotesModel extends Equatable {
       selfEsteem: selfEsteem ?? this.selfEsteem,
       stressLevel: stressLevel ?? this.stressLevel,
       notesTitle: notesTitle ?? this.notesTitle,
+      dateTime: dateTime ?? this.dateTime,
     );
   }
 
   factory NotesModel.initali() {
-    return const NotesModel(
+    return NotesModel(
       subCategories: [],
       categoryName: "",
       selfEsteem: 50,
       stressLevel: 50,
       notesTitle: '',
       date: '',
+      dateTime: DateTime(2000),
     );
   }
 
   @override
   List<Object?> get props => [
         subCategories,
+        dateTime,
         date,
         categoryName,
         selfEsteem,

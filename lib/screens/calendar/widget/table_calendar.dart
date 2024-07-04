@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:to_do_app/utils/app_colors.dart';
 import 'package:to_do_app/utils/app_text_style.dart';
+import 'package:to_do_app/utils/extension.dart';
 
 class MyTableCalendar extends StatelessWidget {
   const MyTableCalendar({
@@ -71,7 +72,7 @@ class MyTableCalendar extends StatelessWidget {
                 ),
               ),
               Text(
-                _getMonthName(day.month), // Customize this as needed
+                day.month.getMonthName(), // Customize this as needed
                 style: AppTextStyle.nunitoSemiBold.copyWith(
                   color: AppColors.c4C4C69,
                   fontSize: 24.sp,
@@ -84,32 +85,6 @@ class MyTableCalendar extends StatelessWidget {
     );
   }
 
-  String _getMonthName(int monthDigit) {
-    switch (monthDigit) {
-      case 1:
-        return "Январь";
-      case 2:
-        return "Февраль";
-      case 3:
-        return "Март";
-      case 4:
-        return "Апрель";
-      case 5:
-        return "Май";
-      case 6:
-        return "Июнь";
-      case 7:
-        return "Июль";
-      case 8:
-        return "Август";
-      case 9:
-        return "Сентябрь";
-      case 10:
-        return "Октябрь";
-      case 11:
-        return "Ноябрь";
-      default:
-        return "Декабрь";
-    }
-  }
 }
+
+

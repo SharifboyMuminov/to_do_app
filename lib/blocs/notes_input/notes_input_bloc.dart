@@ -10,6 +10,18 @@ class NotesInputBloc extends Bloc<NotesInputEvent, NotesInputState> {
     on<NotesInputSetStressLevelEvent>(_setStressLevel);
     on<NotesInputSetNotesTextEvent>(_setNotesText);
     on<NotesInputSetSelfEsteemEvent>(_setSelfEsteem);
+    on<NotesInputSetDateTextEvent>(_settDateText);
+  }
+
+  void _settDateText(NotesInputSetDateTextEvent event, emit) {
+    emit(
+      state.copyWith(
+        notesModel: state.notesModel.copyWith(
+          date: event.date,
+        ),
+      ),
+    );
+    _check(emit);
   }
 
   void _setNotesText(NotesInputSetNotesTextEvent event, emit) {

@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocBuilder<NotesInputBloc, NotesInputState>(
       builder: (BuildContext context, NotesInputState state) {
         return Scaffold(
-          appBar: _appBar(),
+          appBar: _appBar(state.notesModel.date),
           body: SingleChildScrollView(
             padding: EdgeInsets.only(top: 22.he, bottom: 30.he),
             child: Column(
@@ -188,12 +188,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  AppBar _appBar() {
+  AppBar _appBar(String title) {
     return AppBar(
       // backgroundColor: AppColors.white,
       centerTitle: true,
       title: Text(
-        "1 января 09:00",
+        title,
         style: AppTextStyle.nunitoSemiBold.copyWith(
           fontSize: 18.sp,
           color: AppColors.cBCBCBF,

@@ -29,6 +29,8 @@ class MySlider extends StatelessWidget {
       child: Slider(
         min: 1,
         max: 100,
+        divisions: 100,
+        label: currentValue.toInt().toString(),
         value: currentValue,
         onChanged: onChanged,
       ),

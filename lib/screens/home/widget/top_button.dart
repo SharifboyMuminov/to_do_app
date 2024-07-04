@@ -24,7 +24,7 @@ class TopMyButton extends StatelessWidget {
     return TextButton(
       style: TextButton.styleFrom(
         backgroundColor: isActive ? AppColors.cFF8702 : AppColors.cF2F2F2,
-        padding: EdgeInsets.symmetric(vertical: 9.he, horizontal: 17.we),
+        padding: EdgeInsets.symmetric(vertical: 9.he, horizontal: 10.we),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(47.r),
         ),

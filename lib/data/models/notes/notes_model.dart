@@ -1,12 +1,14 @@
 import 'package:equatable/equatable.dart';
 
 class NotesModel extends Equatable {
+  final String notesTitle;
   final String categoryName;
   final List<String> subCategories;
   final int stressLevel;
   final int selfEsteem;
 
   const NotesModel({
+    required this.notesTitle,
     required this.subCategories,
     required this.categoryName,
     required this.selfEsteem,
@@ -15,6 +17,7 @@ class NotesModel extends Equatable {
 
   NotesModel copyWith({
     String? categoryName,
+    String? notesTitle,
     List<String>? subCategories,
     int? stressLevel,
     int? selfEsteem,
@@ -24,6 +27,7 @@ class NotesModel extends Equatable {
       categoryName: categoryName ?? this.categoryName,
       selfEsteem: selfEsteem ?? this.selfEsteem,
       stressLevel: stressLevel ?? this.stressLevel,
+      notesTitle: notesTitle ?? this.notesTitle,
     );
   }
 
@@ -33,6 +37,7 @@ class NotesModel extends Equatable {
       categoryName: "",
       selfEsteem: 0,
       stressLevel: 0,
+      notesTitle: '',
     );
   }
 
@@ -42,5 +47,6 @@ class NotesModel extends Equatable {
         categoryName,
         selfEsteem,
         stressLevel,
+        notesTitle,
       ];
 }

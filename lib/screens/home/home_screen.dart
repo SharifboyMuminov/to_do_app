@@ -82,6 +82,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (state.notesModel.categoryName.isNotEmpty)
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.we),
+                    child: Text(
+                      state.notesModel.categoryName,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyle.nunitoBlack.copyWith(
+                        color: AppColors.c4C4C69,
+                        fontSize: 16.sp,
+                      ),
+                    ),
+                  ),
+                if (state.notesModel.categoryName.isNotEmpty) 5.getH(),
+                if (state.notesModel.categoryName.isNotEmpty)
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.we),
                     child: Wrap(
                       spacing: 8.he,
                       runSpacing: 3.we,

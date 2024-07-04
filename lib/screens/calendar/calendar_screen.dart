@@ -24,8 +24,6 @@ class CalendarScreenState extends State<CalendarScreen> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
-  bool active = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,24 +46,33 @@ class CalendarScreenState extends State<CalendarScreen> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {
-                    if (_selectedDay != null) {
-                      String selectDay =
-                          "${_selectedDay!.day} ${_selectedDay!.month.getMonthName()}";
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.r),
+                    ),
+                  ),
+                  onPressed: _selectedDay != null
+                      ? () {
+                          if (_selectedDay != null) {
+                            String selectDay =
+                                "${_selectedDay!.day} ${_selectedDay!.month.getMonthName()}";
 
-                      context.read<NotesInputBloc>().add(
-                            NotesInputSetDateTextEvent(
-                              date: selectDay,
-                            ),
-                          );
-                      Navigator.pop(context);
-                    }
-                  },
+                            context.read<NotesInputBloc>().add(
+                                  NotesInputSetDateTextEvent(
+                                    date: selectDay,
+                                  ),
+                                );
+                            Navigator.pop(context);
+                          }
+                        }
+                      : null,
                   child: Text(
                     "Сохранить",
                     style: AppTextStyle.nunitoSemiBold.copyWith(
                       fontSize: 18.sp,
-                      color: active ? AppColors.cFF8702 : AppColors.cBCBCBF,
+                      color: _selectedDay != null
+                          ? AppColors.cFF8702
+                          : AppColors.cBCBCBF,
                     ),
                   ),
                 ),
@@ -89,7 +96,6 @@ class CalendarScreenState extends State<CalendarScreen> {
             },
             onDaySelected: (DateTime selectedDay, DateTime focusedDay) {
               setState(() {
-                active = true;
                 _selectedDay = selectedDay;
                 _focusedDay = focusedDay;
               });

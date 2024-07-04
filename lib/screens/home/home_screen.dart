@@ -219,7 +219,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       // Selected Date portrait
                       labelSmall: AppTextStyle.nunitoMedium,
                       // Title - SELECT DATE
-                      // year gridbview picker
                       titleMedium: AppTextStyle.nunitoRegular,
                       // input
                       titleSmall:
